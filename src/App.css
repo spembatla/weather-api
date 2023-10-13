@@ -1,38 +1,86 @@
-.App {
-  text-align: center;
+.weather-app{
+  display: flex;
+  padding: 150px;
+  height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Left{
+  flex: 1;
+  display: flex;
+  align-items:flex-end;
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.box{
   display: flex;
   flex-direction: column;
+  row-gap: 10px;
+}
+
+.line-one{
+  display: flex;
+  column-gap: 10px;
   align-items: center;
+}
+
+.degree{
+  font-size: 6rem;
+  font-weight: 600;
+}
+
+.line-two{
+  display: flex;
+}
+
+.location{
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
+.line-three{
+  display: flex;
+  column-gap: 8px;
+}
+
+.gap{
+  display: flex;
+  column-gap: 8px;
+}
+
+.Right{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  row-gap: 8px;
+}
+
+.cube{
+  border-radius: 15px;
+  background-color: rgba(6, 6, 6, 0.623);
+  padding: 35px;
+}
+
+hr{
+  color:rgba(108, 94, 94, 0.723);
+}
+
+.forecast{
+  display: flex;
+  flex-direction: column;
+}
+
+.day-1{
+  display: flex;
+  column-gap: 10px;
+}
+
+.now{
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.today{
+  display: flex;
+  justify-content: center;
 }

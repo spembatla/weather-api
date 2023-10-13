@@ -1,10 +1,16 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url("../public/water-droplets.jpg");
+  color: white;
+  background-color: rgba(rgba(152, 151, 151, 0.46));
+  height: 100vh;
+}
+
+#root{
+height: calc(100% - 300px);
 }
 
 code {
