@@ -18,6 +18,7 @@ function App() {
     getForcastData();
   }, []);
 
+
   const getTime = (time) => {
     const t = time?.split(" ")[1];
     return t;
@@ -26,9 +27,8 @@ function App() {
   const getForcastData = () => {
     const arr = (weathers && weathers.forecast.forecastday) || [];
     const date = new Date();
-    const today = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()}`;
+    const today = `${date.getFullYear()}-${date.getMonth() + 1
+      }-${date.getDate()}`;
     let foundElement = null;
 
     for (let i = 0; i < arr.length; i++) {
@@ -36,17 +36,24 @@ function App() {
       if (e.date === today) {
         foundElement = e;
       }
-      
     }
 
     if (foundElement) {
       setTodayForecast(foundElement);
     }
   };
-  
 
+  const getHour = (time) => {
+    const d = new Date(time);
+    return d.getHours();
+  }
 
-  console.log("today forcast data ==>", todayForecast);
+  const convertTextToDeg = (str) => {
+    const t = `${str}&deg;`;
+    const dom = new DOMParser();
+    const parser = dom.parseFromString(t, 'text/html');
+    return parser.body.innerHTML;
+  }
 
   return (
     <div className="weather-app">
@@ -83,70 +90,22 @@ function App() {
         </div>
       </div>
       <div className="Right">
+
         <div className="cube">
           <div>Thunderstrom expected around on 00:00</div>
           <hr />
-          <div className="today">
-            <div className="now">
-              <div>Now</div>
-              <div>
-                <img src={weathers && weathers.current.condition.icon} />
+          <div className="day-forcast">
+            {todayForecast && todayForecast.hour.map((forecast, i) => {
+              return <div key={i} className="day">
+                <div className="f-time">{getHour(forecast.time)}</div>
+                <div className="f-img">
+                  <img src={forecast.condition.icon} alt={forecast.condition.text} />
+                </div>
+                <div className="f-temp">{convertTextToDeg(forecast.temp_c)}</div>
               </div>
-              <div>{weathers && weathers.current.temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>00</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[0].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[0].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>01</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[1].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[1].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>02</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[2].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[2].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>03</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[3].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[3].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>04</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[4].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[4].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>05</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[5].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[5].temp_c}&deg;c</div>
-            </div>
-            <div className="now">
-              <div>06</div>
-              <div>
-                <img src={todayForecast && todayForecast.hour[6].condition.icon} />
-              </div>
-              <div>{todayForecast && todayForecast.hour[6].temp_c}&deg;c</div>
-            </div>
-            
-            
-            
+            })}
           </div>
+
         </div>
         <div className="cube">
           <div>5-Day Forecast</div>
@@ -157,7 +116,7 @@ function App() {
                 return <div key={i}>{weather.date}</div>
               })
             }
-            
+
           </div>
         </div>
       </div>
