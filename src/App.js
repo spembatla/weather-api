@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import RangeSlider from "./rangeSlider.component";
 
 function App() {
   const [weathers, setWeathers] = useState();
@@ -27,9 +28,8 @@ function App() {
   const getForcastData = () => {
     const arr = (weathers && weathers.forecast.forecastday) || [];
     const date = new Date();
-    const today = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()}`;
+    const today = `${date.getFullYear()}-${date.getMonth() + 1
+      }-${date.getDate()}`;
     let foundElement = null;
 
     for (let i = 0; i < arr.length; i++) {
@@ -76,87 +76,6 @@ function App() {
     const parser = dom.parseFromString(t, "text/html");
     return parser.body.innerHTML;
   };
-
-  // var lowerSlider = document.querySelector("#lower");
-  // var upperSlider = document.querySelector("#upper");
-  // var lowerVal = parseInt(lowerSlider.value);
-  // var upperVal = parseInt(upperSlider.value);
-
-  // upperSlider.oninput = function () {
-  //   lowerVal = parseInt(lowerSlider.value);
-  //   upperVal = parseInt(upperSlider.value);
-
-  //   if (upperVal < lowerVal + 4) {
-  //     lowerSlider.value = upperVal - 4;
-
-  //     if (lowerVal == lowerSlider.min) {
-  //       upperSlider.value = 4;
-  //     }
-  //   }
-  // };
-
-  // lowerSlider.oninput = function () {
-  //   lowerVal = parseInt(lowerSlider.value);
-  //   upperVal = parseInt(upperSlider.value);
-
-  //   if (lowerVal > upperVal - 4) {
-  //     upperSlider.value = lowerVal + 4;
-
-  //     if (upperVal == upperSlider.max) {
-  //       lowerSlider.value = parseInt(upperSlider.max) - 4;
-  //     }
-  //   }
-  // };
-
-  window.onload = function () {
-    slideOne();
-    slideTwo();
-  };
-
-  let sliderOne = document.getElementById("slider-1");
-  let sliderTwo = document.getElementById("slider-2");
-  let displayValOne = document.getElementById("range1");
-  let displayValTwo = document.getElementById("range2");
-  let minGap = 0;
-  let sliderTrack = document.querySelector(".slider-track");
-  let sliderMaxValue = 0;
-  if (sliderOne) {
-    sliderMaxValue = slideOne.max;
-  }
-
-  function slideOne() {
-    if (
-      slideOne &&
-      slideTwo &&
-      parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap
-    ) {
-      sliderOne.value = parseInt(sliderTwo.value) - minGap;
-    }
-
-    if (sliderOne) {
-      displayValOne.textContent = sliderOne.value;
-      fillColor();
-    }
-  }
-  function slideTwo() {
-    if (
-      slideOne &&
-      slideTwo &&
-      parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap
-    ) {
-      sliderTwo.value = parseInt(sliderOne.value) + minGap;
-    }
-    if (sliderTwo) {
-      displayValTwo.textContent = sliderTwo.value;
-      fillColor();
-    }
-  }
-
-  function fillColor() {
-    var percent1 = (sliderOne.value / sliderMaxValue) * 100;
-    var percent2 = (sliderTwo.value / sliderMaxValue) * 100;
-    sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
-  }
 
   return (
     <div className="weather-app">
@@ -239,24 +158,7 @@ function App() {
                       {convertTextToDeg(weather.day.mintemp_c)}c
                     </div>
                     <div className="f-range">
-                    
-                      <div class="slider-track"></div>
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="30"
-                        id="slider-1"
-                        oninput="slideOne()"
-                      />
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="70"
-                        id="slider-2"
-                        oninput="slideTwo()"
-                      />
+                      <RangeSlider minValue={weather.day.mintemp_c} maxValue={weather.day.maxtemp_c} />
                     </div>
                     <div className="f-high">
                       {convertTextToDeg(weather.day.maxtemp_c)}c
